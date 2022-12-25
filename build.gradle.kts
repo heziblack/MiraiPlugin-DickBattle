@@ -6,12 +6,20 @@ plugins {
     id("net.mamoe.mirai-console") version "2.13.2"
 }
 
-group = "org.example"
-version = "0.1.0"
+group = "org.hezistudio"
+version = "0.1.5-RC"
 
 repositories {
     if (System.getenv("CI")?.toBoolean() != true) {
         maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库
     }
     mavenCentral()
+}
+
+dependencies{
+    implementation("org.jetbrains.exposed","exposed-core","0.38.2")
+    implementation("org.jetbrains.exposed","exposed-dao","0.38.2")
+    implementation("org.jetbrains.exposed","exposed-jdbc","0.38.2")
+    implementation ("com.google.code.gson:gson:2.9.1")
+    implementation("org.xerial:sqlite-jdbc:3.40.0.0")
 }

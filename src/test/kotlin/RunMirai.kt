@@ -5,32 +5,26 @@ import net.mamoe.mirai.console.MiraiConsole
 import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.enable
 import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.load
 import net.mamoe.mirai.console.terminal.MiraiConsoleTerminalLoader
+import org.hezistudio.data.DatabaseManager
+import org.hezistudio.data.Posture
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 suspend fun main() {
-    if (true) {
+    val dtf = DateTimeFormatter.ofPattern("yyMMddHHmmss")
+    val start = LocalDateTime.from(dtf.parse("221211150000"))
+    val endTime = LocalDateTime.from(dtf.parse("221221170000"))
+    val a = Duration.between(start,endTime)
+    println(a.isNegative)
+    val day = a.toDays()
+    val hour = a.toHours() - day * 24
+    val minute = a.toMinutes() - (day * 24 + hour) * 60
+    val second = a.seconds - ((day * 24 + hour) * 60 + minute) * 60
+    println("$day $hour $minute $second")
 
-        error("""
-            DEPRECATED:
-            此启动方法已经被弃用, 请使用 ./gradlew runConsole 启动测试环境
-            
-            详见:
-            https://docs.mirai.mamoe.net/console/plugin/JVMPlugin.html#%E8%B0%83%E8%AF%95
-            https://github.com/mamoe/mirai/blob/dev/mirai-console/docs/plugin/JVMPlugin.md#%E8%B0%83%E8%AF%95
-            """.trimIndent())
-    }
 
-    MiraiConsoleTerminalLoader.startAsDaemon()
 
-    //如果是Kotlin
-    PluginMain.load()
-    PluginMain.enable()
-    //如果是Java
-//    JavaPluginMain.INSTANCE.load()
-//    JavaPluginMain.INSTANCE.enable()
 
-    val bot = MiraiConsole.addBot(123456, "") {
-        fileBasedDeviceInfo()
-    }.alsoLogin()
 
-    MiraiConsole.job.join()
 }
